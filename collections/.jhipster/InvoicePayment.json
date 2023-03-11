@@ -1,0 +1,56 @@
+{
+  "applications": ["payment", "collections"],
+  "changelogDate": "20230311201832",
+  "clientRootFolder": "collections",
+  "databaseType": "mongodb",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "invoice_payment",
+  "fields": [
+    {
+      "fieldName": "narration",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "paymentDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "amount",
+      "fieldType": "BigDecimal"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "collections",
+  "name": "InvoicePayment",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "invoice",
+      "ownerSide": true,
+      "relationshipName": "invoice",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "userAccount",
+      "ownerSide": true,
+      "relationshipName": "sourceAccount",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "userAccount",
+      "ownerSide": true,
+      "relationshipName": "destinationAccount",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "payer",
+      "relationshipName": "payer",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": false,
+  "service": "serviceImpl"
+}

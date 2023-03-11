@@ -1,0 +1,24 @@
+{
+  "applications": ["collections"],
+  "changelogDate": "20230311202332",
+  "clientRootFolder": "collections",
+  "databaseType": "mongodb",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "subscriber",
+  "fields": [
+    {
+      "fieldName": "fullName",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "collections",
+  "name": "Subscriber",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "searchEngine": false,
+  "service": "serviceImpl"
+}

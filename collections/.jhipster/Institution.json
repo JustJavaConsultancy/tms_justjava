@@ -1,0 +1,53 @@
+{
+  "applications": ["payment", "collections"],
+  "changelogDate": "20230311201532",
+  "clientRootFolder": "collections",
+  "databaseType": "mongodb",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "institution",
+  "fields": [
+    {
+      "fieldName": "code",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "collections",
+  "name": "Institution",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "chartOfAccount",
+      "ownerSide": true,
+      "relationshipName": "chartOfAccount",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "approvalRoute",
+      "ownerSide": true,
+      "relationshipName": "approvalRoute",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "userAccount",
+      "otherEntityRelationshipName": "institution",
+      "relationshipName": "accounts",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "institutionType",
+      "relationshipName": "institutionType",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": false,
+  "service": "serviceImpl"
+}

@@ -1,0 +1,31 @@
+{
+  "applications": ["payment", "collections"],
+  "changelogDate": "20230311201332",
+  "clientRootFolder": "collections",
+  "databaseType": "mongodb",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "chart_of_account",
+  "fields": [
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "collections",
+  "name": "ChartOfAccount",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "chart",
+      "otherEntityRelationshipName": "chartOfAccount",
+      "relationshipName": "charts",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": false,
+  "service": "serviceImpl"
+}

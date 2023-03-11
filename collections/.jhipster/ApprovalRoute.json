@@ -1,0 +1,43 @@
+{
+  "applications": ["payment", "collections"],
+  "changelogDate": "20230311201132",
+  "clientRootFolder": "collections",
+  "databaseType": "mongodb",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "approval_route",
+  "fields": [
+    {
+      "fieldName": "code",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "collections",
+  "name": "ApprovalRoute",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "type",
+      "otherEntityName": "requestType",
+      "ownerSide": true,
+      "relationshipName": "requestType",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "approvalLine",
+      "ownerSide": true,
+      "relationshipName": "approvalLine",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "searchEngine": false,
+  "service": "serviceImpl"
+}

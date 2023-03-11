@@ -1,0 +1,38 @@
+{
+  "applications": ["reconciliation"],
+  "changelogDate": "20230311201132",
+  "clientRootFolder": "reconciliation",
+  "databaseType": "mongodb",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "reconciliation_item",
+  "fields": [
+    {
+      "fieldName": "status",
+      "fieldType": "ReconciliationStatus",
+      "fieldValues": "RECONCILED,UNRECONCILED"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "reconciliation",
+  "name": "ReconciliationItem",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "leftItem",
+      "ownerSide": true,
+      "relationshipName": "leftItem",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "rightItem",
+      "ownerSide": true,
+      "relationshipName": "rightItem",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "searchEngine": false,
+  "service": "serviceImpl"
+}

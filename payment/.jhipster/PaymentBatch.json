@@ -1,0 +1,40 @@
+{
+  "applications": ["payment"],
+  "changelogDate": "20230311201032",
+  "clientRootFolder": "payment",
+  "databaseType": "mongodb",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "payment_batch",
+  "fields": [
+    {
+      "fieldName": "batchId",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "narration",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "creationDate",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "payment",
+  "name": "PaymentBatch",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "paymentInstruction",
+      "otherEntityRelationshipName": "paymentBatch",
+      "relationshipName": "paymentInstructions",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": false,
+  "service": "serviceImpl"
+}

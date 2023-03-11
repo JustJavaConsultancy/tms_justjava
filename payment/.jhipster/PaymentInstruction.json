@@ -1,0 +1,69 @@
+{
+  "applications": ["payment"],
+  "changelogDate": "20230311201132",
+  "clientRootFolder": "payment",
+  "databaseType": "mongodb",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "payment_instruction",
+  "fields": [
+    {
+      "fieldName": "sourceAccount",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "destinationAccount",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "narration",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "amount",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "sourceName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "destinationName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "sourceBankAccountCode",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "destinationBankAccountCode",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "paymentStatus",
+      "fieldType": "PaymentStatus",
+      "fieldValues": "NEW,PAID,FAILED"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "payment",
+  "name": "PaymentInstruction",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "paymentBatch",
+      "otherEntityRelationshipName": "paymentInstructions",
+      "relationshipName": "paymentBatch",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": false,
+  "service": "serviceImpl"
+}

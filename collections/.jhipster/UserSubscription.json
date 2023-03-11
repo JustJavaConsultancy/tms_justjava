@@ -1,0 +1,43 @@
+{
+  "applications": ["collections"],
+  "changelogDate": "20230311202532",
+  "clientRootFolder": "collections",
+  "databaseType": "mongodb",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "user_subscription",
+  "fields": [
+    {
+      "fieldName": "status",
+      "fieldType": "SubscriptionStatus",
+      "fieldValues": "ACTIVE,INACTIVE,SUSPENDED"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "collections",
+  "name": "UserSubscription",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "collectionService",
+      "ownerSide": true,
+      "relationshipName": "service",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "invoice",
+      "otherEntityRelationshipName": "userSubscription",
+      "relationshipName": "invoices",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "subscriber",
+      "relationshipName": "subscriber",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": false,
+  "service": "serviceImpl"
+}

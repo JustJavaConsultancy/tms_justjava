@@ -1,0 +1,32 @@
+{
+  "applications": ["payment"],
+  "changelogDate": "20230311201232",
+  "clientRootFolder": "payment",
+  "databaseType": "mongodb",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "request",
+  "fields": [
+    {
+      "fieldName": "currentLevel",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "payment",
+  "name": "Request",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "requestContent",
+      "ownerSide": true,
+      "relationshipName": "requestContent",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "searchEngine": false,
+  "service": "serviceImpl"
+}
