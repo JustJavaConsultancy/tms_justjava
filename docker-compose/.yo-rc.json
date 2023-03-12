@@ -1,0 +1,11 @@
+{
+  "generator-jhipster": {
+    "appsFolders": ["collections", "gateway", "payment", "reconciliation"],
+    "clusteredDbApps": [],
+    "directoryPath": "../",
+    "gatewayType": "SpringCloudGateway",
+    "jwtSecretKey": "ZjQ5MDQxYzkyMWVlNzJkMWZiNzYyM2EzODQ0N2ZlYzJkMDc2YjRkZTYyZTlkNTI5M2YzOWMzYTQyMzRmMDdiYzNlOWU4MjJjYTYyZDNmNzhkMTBiY2Q3YzE4YTk3ZWUzYzU1NA==",
+    "monitoring": "prometheus",
+    "serviceDiscoveryType": "eureka"
+  }
+}
