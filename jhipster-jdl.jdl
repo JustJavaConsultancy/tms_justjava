@@ -1,0 +1,287 @@
+
+application{
+	config {
+    	baseName gateway
+        reactive true
+        packageName com.simplifysynergy
+        applicationType gateway
+        authenticationType jwt
+        buildTool maven
+        clientFramework react
+        devDatabaseType postgresql
+        prodDatabaseType postgresql
+        serverPort 8081
+        serviceDiscoveryType eureka
+    }
+}
+application {
+	config {
+    	baseName payment
+        reactive true
+        applicationType microservice
+        packageName com.simplifysynergy
+        authenticationType jwt
+        buildTool maven
+        messageBroker kafka
+        skipClient true
+        skipUserManagement false
+        serviceDiscoveryType eureka
+        databaseType mongodb
+        serverPort 8082
+    }
+    entities  Request, RequestType , Invoice, InvoicePayment, Payer, RequestContent, PaymentBatch, PaymentInstruction, Receipt, Institution, InstitutionType, UserAccount, ChartOfAccount, Chart, ApprovalRoute, ApprovalLine
+    dto * with mapstruct
+	service all with serviceImpl
+	paginate all with pagination
+	search all with elasticsearch
+}
+
+application {
+	config {
+    	baseName collections
+        reactive true
+        applicationType microservice
+        packageName com.simplifysynergy
+        authenticationType jwt
+        buildTool maven
+        messageBroker kafka
+        skipClient true
+        skipUserManagement false
+        serviceDiscoveryType eureka
+        databaseType mongodb
+        serverPort 8083
+    }
+    entities  Institution, ChartOfAccount, ApprovalRoute, RequestType, ApprovalLine, Chart, InstitutionType, Invoice, InvoicePayment, Payer, UserAccount, Receipt, CollectionService, ServiceType, UserSubscription, Subscriber
+    dto * with mapstruct
+	service all with serviceImpl
+	paginate all with pagination
+	search all with elasticsearch
+}
+
+application {
+	config {
+    	baseName reconciliation
+        reactive true
+        applicationType microservice
+        packageName com.simplifysynergy
+        authenticationType jwt
+        buildTool maven
+        messageBroker kafka
+        skipClient true
+        skipUserManagement false
+        serviceDiscoveryType eureka
+        databaseType mongodb
+        serverPort 8084
+    }
+    entities  ReconciliationItem, LeftItem, RightItem
+    dto * with mapstruct
+	service all with serviceImpl
+	paginate all with pagination
+	search all with elasticsearch
+}
+
+enum InvoiceStatus {
+	NEW, PAID, FAILED
+}
+
+enum ReconciliationStatus {
+	RECONCILED, UNRECONCILED
+}
+
+
+enum AccountType {
+	WALLET, BANK
+}
+
+enum Frequency {
+	WEEKLY, MONTHLY, QUATERLY, ANNUALLY, ONE_TIME
+}
+
+enum SubscriptionStatus {
+	ACTIVE, INACTIVE, SUSPENDED
+}
+
+enum PaymentStatus {
+	NEW, PAID, FAILED
+}
+
+entity Request {
+    currentLevel Integer required
+}
+
+entity RequestType {
+	type String required
+	description String
+    code String required
+}
+
+entity RequestContent {
+	content String
+}
+
+entity Invoice {
+	invoiceNumber String
+    issueDate LocalDate
+    nextDueDate LocalDate
+    amount BigDecimal
+   status InvoiceStatus
+}
+
+entity PaymentBatch{
+	batchId String required
+    narration String
+    creationDate LocalDate
+}
+
+entity PaymentInstruction {
+	sourceAccount String required
+    destinationAccount String required
+    narration String
+    amount BigDecimal required
+    sourceName String
+    destinationName String
+    sourceBankAccountCode String required
+    destinationBankAccountCode String required
+    paymentStatus PaymentStatus
+}
+
+entity Institution {
+	code String required
+    description String
+}
+
+entity InstitutionType {
+	code String required
+    description String
+}
+
+entity ChartOfAccount {
+	description String
+}
+
+entity Chart {
+	code String required
+    description String
+    balance BigDecimal
+}
+
+entity ApprovalRoute {
+	code String required
+	description String
+}
+
+entity ApprovalLine {
+    level Integer
+}
+
+entity ReconciliationItem {
+	status ReconciliationStatus
+}
+
+entity LeftItem {
+	narration String
+    reference String
+    externalReference String
+    amount BigDecimal
+}
+
+entity RightItem {
+	narration String
+    reference String
+    externalReference String
+    amount BigDecimal
+}
+/////////////////////////////////////////////////
+
+entity InvoicePayment {
+	narration String
+    paymentDate LocalDate
+    amount BigDecimal
+}
+
+entity Receipt {
+	description String
+    generationDate LocalDate
+    receiptNumber String required
+}
+entity Payer {
+	email String
+    phone String
+    fullName String
+}
+
+entity UserAccount {
+	accountNumber String required
+	availableBalance BigDecimal required
+	currentBalance BigDecimal required
+	accountName String required
+	bankCode String required
+	bankName String required
+}
+entity CollectionService {
+	code String
+    description String
+    amount BigDecimal
+    frequency Frequency
+}
+
+entity ServiceType {
+	code String
+    description String
+}
+
+entity UserSubscription {
+	status SubscriptionStatus
+}
+
+
+entity Subscriber {
+	fullName String
+}
+///////////////////////////////////////////////
+
+relationship OneToOne {
+	//ApprovalLine{user} to User
+	ApprovalRoute{requestType(type)} to RequestType
+    ApprovalRoute{approvalLine} to ApprovalLine
+    Institution{chartOfAccount} to ChartOfAccount
+    Institution{approvalRoute} to ApprovalRoute
+    //Request{initiator} to User
+    //Request{nextApproval} to User
+    Request{requestContent} to RequestContent
+    //PaymentInstruction{receipt} to Receipt
+    //Receipt{payment} to InvoicePayment
+
+    Invoice{invoicePayment} to InvoicePayment
+    InvoicePayment{invoice} to Invoice
+    InvoicePayment{sourceAccount} to UserAccount
+    InvoicePayment{destinationAccount} to UserAccount
+    //InvoicePayment{receipt} to Receipt
+    UserSubscription{service} to CollectionService
+
+    ReconciliationItem{leftItem} to LeftItem
+    ReconciliationItem{rightItem} to RightItem
+
+}
+
+relationship OneToMany {
+	ChartOfAccount{charts} to Chart
+	//Institution{users} to User
+    Institution{accounts} to UserAccount
+    PaymentBatch{paymentInstructions} to PaymentInstruction
+    UserSubscription{invoices} to Invoice
+}
+
+relationship ManyToOne {
+	//Request{requestType} to RequestType
+    Institution{institutionType} to InstitutionType
+
+    InvoicePayment{payer} to Payer
+    CollectionService{serviceType} to ServiceType
+    UserSubscription{subscriber} to Subscriber
+}
+
+microservice Request, RequestType, Invoice, InvoicePayment, RequestContent, PaymentBatch, PaymentInstruction, Receipt, Institution, InstitutionType, UserAccount, ChartOfAccount, Chart, ApprovalRoute, ApprovalLine with payment
+microservice Institution, ChartOfAccount, ApprovalRoute, RequestType, ApprovalLine, Chart, InstitutionType, Invoice, InvoicePayment, Payer, UserAccount, Receipt, CollectionService, ServiceType, UserSubscription, Subscriber with collections
+microservice ReconciliationItem, LeftItem, RightItem with reconciliation
+
