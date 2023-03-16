@@ -1,0 +1,40 @@
+application {
+	config {
+    	baseName notification
+        reactive true
+        applicationType microservice
+        packageName com.simplifysynergy
+        authenticationType jwt
+        buildTool maven
+        messageBroker kafka
+        skipClient true
+        skipUserManagement false
+        serviceDiscoveryType eureka
+        databaseType mongodb
+        serverPort 8083
+    }
+    entities  Notification
+    dto * with mapstruct
+	service all with serviceImpl
+	paginate all with pagination
+	search all with elasticsearch
+}
+enum Status {
+	NEW, SENT, FAILED
+}
+enum NotificationType {
+  EMAIL, SMS, INAPP
+}
+enum ReadStatus {
+  READ, UNREAD
+}
+entity Notification {
+    status Status required
+    sender String required
+    receiver String
+    subject String
+    content String
+    read ReadStatus
+    notificationType NotificationType
+}
+
